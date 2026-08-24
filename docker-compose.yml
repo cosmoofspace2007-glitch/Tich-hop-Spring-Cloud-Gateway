@@ -1,0 +1,25 @@
+services:
+
+  api-gateway:
+    build:
+      context: ./api-gateway
+    container_name: api-gateway
+    ports:
+      - "8080:8080"
+    depends_on:
+      - user-service
+    networks:
+      - quickbite-network
+
+  user-service:
+    build:
+      context: ./user-service
+    container_name: user-service
+    expose:
+      - "8081"
+    networks:
+      - quickbite-network
+
+networks:
+  quickbite-network:
+    driver: bridge
